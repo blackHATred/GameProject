@@ -1,13 +1,13 @@
-package com.bmstu.ppm;
+package com.bmstu.ppm.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.bmstu.ppm.PPMGame;
+import com.bmstu.ppm.STAGE;
 
 public class MainMenuScreen implements Screen {
     final PPMGame game;
@@ -64,6 +64,7 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        //System.out.println(game.music.getPosition());
         stage.act(delta);
         stage.draw();
     }

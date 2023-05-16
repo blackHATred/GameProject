@@ -1,17 +1,16 @@
-package com.bmstu.ppm;
+package com.bmstu.ppm.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Slider;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
+import com.bmstu.ppm.PPMGame;
+import com.bmstu.ppm.STAGE;
 
 import java.io.IOException;
 
@@ -22,9 +21,11 @@ public class SettingsScreen implements Screen {
     private final Slider volume;
     private final Slider FOV;
     private final Slider graphic;
+    private final CheckBox fishEye;
     private final Label volumeLabel;
     private final Label FOVLabel;
     private final Label graphicLabel;
+    private final Label fishEyeLabel;
     public SettingsScreen(final PPMGame game) {
         this.game = game;
         back = new TextButton("Назад", game.skin);
@@ -34,14 +35,17 @@ public class SettingsScreen implements Screen {
         FOV.setValue(game.settings.FOV);
         graphic = new Slider(1, 8, 1, false, game.skin);
         graphic.setValue(game.settings.graphics);
+        fishEye = new CheckBox("", game.skin);
+        fishEye.setChecked(game.settings.fishEye);
         volumeLabel = new Label(String.valueOf(game.settings.volume), game.skin);
         FOVLabel = new Label(String.valueOf(game.settings.FOV), game.skin);
         graphicLabel = new Label(String.valueOf(game.settings.graphics), game.skin);
+        fishEyeLabel = new Label(game.settings.fishEye ? "Включено" : "Выключено", game.skin);
     }
 
     @Override
     public void show() {
-        // TODO: добавить функцию сохранения эффекта рыбьего глаза
+        // TODO: добавить регулировку чувствительности
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         Table rootTable = new Table(game.skin);
@@ -62,6 +66,10 @@ public class SettingsScreen implements Screen {
         rootTable.add(graphic).pad(0, 10, 0, 10);
         rootTable.add(graphicLabel);
         rootTable.row();
+        rootTable.add(new Label("Эффект рыбьего глаза", game.skin));
+        rootTable.add(fishEye).pad(0, 10, 0, 10);
+        rootTable.add(fishEyeLabel);
+        rootTable.row();
         rootTable.add(new Label("", game.skin));
         rootTable.row();
         rootTable.add(back).colspan(3);
@@ -77,6 +85,7 @@ public class SettingsScreen implements Screen {
         volume.addListener(new ChangeListener(){public void changed(ChangeEvent event, Actor actor) {
             volumeLabel.setText(String.valueOf((int) volume.getValue()));
             game.settings.volume = (int) volume.getValue();
+            game.music.setVolume((float) volume.getValue() / 100);
             try {
                 game.settings.save();
             } catch (IOException e) {
@@ -87,6 +96,15 @@ public class SettingsScreen implements Screen {
             if(graphic.getValue() != 1) graphic.setValue(graphic.getValue() - graphic.getValue() % 2);
             graphicLabel.setText(String.valueOf((int) graphic.getValue()));
             game.settings.graphics = (int) graphic.getValue();
+            try {
+                game.settings.save();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }});
+        fishEye.addListener(new ChangeListener(){public void changed(ChangeEvent event, Actor actor) {
+            fishEyeLabel.setText(fishEye.isChecked() ? "Включено" : "Выключено");
+            game.settings.fishEye = fishEye.isChecked();
             try {
                 game.settings.save();
             } catch (IOException e) {
