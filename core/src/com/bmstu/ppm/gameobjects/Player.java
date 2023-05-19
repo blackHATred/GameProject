@@ -9,7 +9,7 @@ public class Player {
     private double posX;
     private double posY;
     private double rotate = 0;
-    private final double VFOV_const = 20;
+    private final double VFOV_const = 30;
     private final double rotateSpeed = 5d;
     private final double walkSpeed = 100d;
     private final double runSpeed = 200d;
@@ -42,14 +42,14 @@ public class Player {
     }
     public void move(double x, double y, ArrayList<GameObject> objects){
         for (GameObject gameObject: objects) {
-            if (gameObject.isCollidable()) continue;
+            if (!gameObject.isCollidable()) continue;
             switch (gameObject.getCollidableType()){
                 case LINE -> {
                     if (SuperDuperMath.lineIntersect(
-                            new SuperDuperMath.Point(this.posX, this.posY),
-                            new SuperDuperMath.Point(this.posX + x * speed, this.posY + y * speed),
-                            new SuperDuperMath.Point(gameObject.getPosX1(), gameObject.getPosY1()),
-                            new SuperDuperMath.Point(gameObject.getPosX2(), gameObject.getPosY2())
+                            this.posX, this.posY,
+                            this.posX + x * speed * 1.5, this.posY + y * speed * 1.5,
+                            gameObject.getPosX1(), gameObject.getPosY1(),
+                            gameObject.getPosX2(), gameObject.getPosY2()
                     ) != null)
                         return;
                 }

@@ -4,16 +4,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.bmstu.ppm.PPMGame;
 import com.bmstu.ppm.STAGE;
 
-public class MainMenuScreen implements Screen {
+public class PauseScreen implements Screen {
     final PPMGame game;
     private Stage stage;
 
-    public MainMenuScreen(final PPMGame game) {
+    public PauseScreen(final PPMGame game) {
         this.game = game;
     }
 
@@ -26,23 +27,15 @@ public class MainMenuScreen implements Screen {
         rootTable.background("window");
         rootTable.setFillParent(true);
         stage.addActor(rootTable);
-        TextButton newGameButton = new TextButton("Начать", game.skin);
         TextButton continueButton = new TextButton("Продолжить", game.skin);
         TextButton settingsButton = new TextButton("Настройки", game.skin);
-        TextButton exitButton = new TextButton("Выйти из игры", game.skin);
-        rootTable.add(newGameButton).expandX();
-        rootTable.row();
+        TextButton exitButton = new TextButton("Выйти в меню", game.skin);
         rootTable.add(continueButton).expandX();
         rootTable.row();
         rootTable.add(settingsButton).expandX();
         rootTable.row();
         rootTable.add(exitButton).expandX();
 
-        newGameButton.addListener( new ClickListener(){
-            public void clicked(InputEvent event, float x, float y){
-                game.setScreen(game.screens.get(STAGE.DEBUG_LEVEL));
-            }
-        });
         continueButton.addListener( new ClickListener(){
             public void clicked(InputEvent event, float x, float y){
                 game.setScreen(game.screens.get(STAGE.MAIN_MENU_LOAD));
@@ -55,7 +48,6 @@ public class MainMenuScreen implements Screen {
         });
         exitButton.addListener( new ClickListener(){
             public void clicked(InputEvent event, float x, float y){
-                System.out.println("EXIT");
                 Gdx.app.exit();
             }
         });
@@ -91,6 +83,4 @@ public class MainMenuScreen implements Screen {
     public void dispose() {
         stage.dispose();
     }
-
-
 }

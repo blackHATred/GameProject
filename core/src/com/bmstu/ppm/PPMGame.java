@@ -17,7 +17,7 @@ import java.util.HashMap;
 
 public class PPMGame extends Game {
 	public Skin skin;
-	public boolean DEBUG = true;
+	public boolean DEBUG = false;
 	public HashMap<STAGE, Screen> screens = new HashMap<>();
 	public Settings settings = new Settings();
 	public String saveFilePath;

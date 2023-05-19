@@ -8,9 +8,9 @@ import com.bmstu.ppm.PPMGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-		config.setForegroundFPS(120);
-		config.setWindowedMode(800, 480);
-		config.useVsync(true);
+		//config.setForegroundFPS(120);
+		config.setWindowedMode(1000, 420);
+		//config.useVsync(true);
 		config.setTitle("Pew-Pew-Meow");
 		config.setResizable(false);
 		new Lwjgl3Application(new PPMGame(), config);
