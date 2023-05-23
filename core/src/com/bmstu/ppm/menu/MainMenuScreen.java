@@ -40,7 +40,14 @@ public class MainMenuScreen implements Screen {
 
         newGameButton.addListener( new ClickListener(){
             public void clicked(InputEvent event, float x, float y){
-                game.setScreen(game.screens.get(STAGE.DEBUG_LEVEL));
+                if (game.DEBUG){
+                    game.currentLevel = STAGE.DEBUG_LEVEL;
+                    game.setScreen(game.screens.get(STAGE.DEBUG_LEVEL));
+                }
+                else {
+                    game.currentLevel = STAGE.LEVEL1;
+                    game.setScreen(game.screens.get(STAGE.LEVEL1));
+                }
             }
         });
         continueButton.addListener( new ClickListener(){

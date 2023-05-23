@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.bmstu.ppm.levels.Level;
 import com.bmstu.ppm.menu.LoadLevelScreen;
@@ -17,32 +16,35 @@ import java.util.HashMap;
 
 public class PPMGame extends Game {
 	public Skin skin;
-	public boolean DEBUG = false;
+	public boolean DEBUG = true;
 	public HashMap<STAGE, Screen> screens = new HashMap<>();
 	public Settings settings = new Settings();
 	public String saveFilePath;
 	public Music music;
-
+	public STAGE currentLevel = STAGE.MAIN_MENU;
 	
 	@Override
 	public void create () {
 		try {
 			settings.load();
 		} catch (IOException e) {
-			try {
-				settings.FOV = 60;
-				settings.volume = 100;
-				settings.graphics = 8;
-				settings.fishEye = false;
-				settings.save();
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
+			settings.FOV = 60;
+			settings.volume = 100;
+			settings.graphics = 8;
+			settings.fishEye = false;
+			settings.save();
 		}
 		saveFilePath = Gdx.files.getLocalStoragePath();
 		System.out.println(saveFilePath);
 
-		music = Gdx.audio.newMusic(Gdx.files.internal("music/musicMenu.ogg"));
+		Gdx.graphics.setWindowedMode(
+				Integer.parseInt(settings.resolution.split("x")[0]),
+				Integer.parseInt(settings.resolution.split("x")[1])
+		);
+		Gdx.graphics.setUndecorated(true);
+
+
+		music = Gdx.audio.newMusic(Gdx.files.internal("music/OveMelaa-ThemeCrystalized.mp3"));
 		music.setVolume((float) settings.volume / 100);
 		music.setLooping(true);
 		music.play();
@@ -51,6 +53,7 @@ public class PPMGame extends Game {
 		screens.put(STAGE.MAIN_MENU, new MainMenuScreen(this));
 		screens.put(STAGE.MAIN_MENU_LOAD, new LoadLevelScreen(this));
 		screens.put(STAGE.MAIN_MENU_SETTINGS, new SettingsScreen(this));
+		screens.put(STAGE.PAUSE, new SettingsScreen(this));
 		screens.put(STAGE.DEBUG_LEVEL, new Level(
 				this,
 				new int[][]{
@@ -82,11 +85,7 @@ public class PPMGame extends Game {
 		));
 		screens.put(STAGE.LEVEL1, new MainMenuScreen(this));
 		screens.put(STAGE.LEVEL2, new MainMenuScreen(this));
-
-		if (DEBUG)
-			this.setScreen(screens.get(STAGE.DEBUG_LEVEL));
-		else
-			this.setScreen(screens.get(STAGE.MAIN_MENU));
+		this.setScreen(screens.get(STAGE.MAIN_MENU));
 	}
 
 	@Override

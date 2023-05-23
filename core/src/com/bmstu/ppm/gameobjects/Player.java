@@ -6,21 +6,20 @@ import java.util.ArrayList;
 
 public class Player {
     private float hp = 100;
-    private double posX;
-    private double posY;
-    private double rotate = 0;
-    private final double VFOV_const = 30;
-    private final double rotateSpeed = 5d;
-    private final double walkSpeed = 100d;
-    private final double runSpeed = 200d;
-    private double speed = walkSpeed;
+    private float posX;
+    private float posY;
+    private float rotate = 0;
+    private final float VFOV_const = 30;
+    private final float walkSpeed = 100f;
+    private final float runSpeed = 200f;
+    private float speed = walkSpeed;
 
-    public Player(double posX, double posY){
+    public Player(float posX, float posY){
         this.posX = posX;
         this.posY = posY;
     }
-    public void rotate(double radians){
-        rotate = (rotate + radians * rotateSpeed) % (2 * Math.PI);
+    public void rotate(float radians, float sensitivity){
+        rotate = (rotate + radians * sensitivity) % (2 * (float) Math.PI);
     }
     public void setRunSpeed(){
         speed = runSpeed;
@@ -28,26 +27,26 @@ public class Player {
     public void setWalkSpeed(){
         speed = walkSpeed;
     }
-    public double getPosX() {
+    public float getPosX() {
         return posX;
     }
-    public double getPosY() {
+    public float getPosY() {
         return posY;
     }
-    public double getVFOV_const() {
+    public float getVFOV_const() {
         return VFOV_const;
     }
-    public double getRotate(){
+    public float getRotate(){
         return rotate;
     }
-    public void move(double x, double y, ArrayList<GameObject> objects){
+    public void move(float x, float y, ArrayList<GameObject> objects){
         for (GameObject gameObject: objects) {
             if (!gameObject.isCollidable()) continue;
             switch (gameObject.getCollidableType()){
                 case LINE -> {
                     if (SuperDuperMath.lineIntersect(
                             this.posX, this.posY,
-                            this.posX + x * speed * 1.5, this.posY + y * speed * 1.5,
+                            this.posX + x * speed * 1.5f, this.posY + y * speed * 1.5f,
                             gameObject.getPosX1(), gameObject.getPosY1(),
                             gameObject.getPosX2(), gameObject.getPosY2()
                     ) != null)

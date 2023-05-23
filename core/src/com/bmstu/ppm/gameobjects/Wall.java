@@ -18,7 +18,7 @@ public class Wall extends GameObject {
         return pixmap;
     }
 
-    public Wall(double posX1, double posY1, double posX2, double posY2, String texturePath){
+    public Wall(float posX1, float posY1, float posX2, float posY2, String texturePath){
         super(true, true, posX1, posY1, posX2, posY2);
         texture = new Texture(Gdx.files.internal(texturePath));
         width = SuperDuperMath.dist(posX1, posY1, posX2, posY2);

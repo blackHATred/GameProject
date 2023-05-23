@@ -8,19 +8,27 @@ import java.nio.charset.StandardCharsets;
 
 public class Settings {
     public int volume;
+    public int musicVolume;
     public int graphics;
     public int FOV;
     public boolean fishEye;
+    public int sensitivity;
+    public String resolution;
 
     public static class Save {
         public STAGE level;
     }
 
-    public void save() throws IOException {
-        Json json = new Json();
-        FileWriter writer = new FileWriter("settings.json", false);
-        writer.write(json.toJson(this));
-        writer.close();
+    public void save() {
+        try {
+            Json json = new Json();
+            FileWriter writer = new FileWriter("settings.json", false);
+            writer.write(json.toJson(this));
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void load() throws IOException {
@@ -33,9 +41,12 @@ public class Settings {
         String str = new String(data, StandardCharsets.UTF_8);
         Settings s = json.fromJson(Settings.class, str);
         this.volume = s.volume;
+        this.musicVolume = s.musicVolume;
         this.FOV = s.FOV;
         this.graphics = s.graphics;
         this.fishEye = s.fishEye;
+        this.sensitivity = s.sensitivity;
+        this.resolution = s.resolution;
     }
 
     public static void save_save(Save save, @Null String fileName) throws IOException {

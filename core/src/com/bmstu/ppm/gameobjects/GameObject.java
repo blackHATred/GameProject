@@ -3,13 +3,13 @@ package com.bmstu.ppm.gameobjects;
 abstract public class GameObject {
     private boolean collidable;
     private boolean renderable;
-    private double posX1;
-    private double posY1;
-    private double posX2;
-    private double posY2;
-    private double posX;
-    private double posY;
-    private double radius;
+    private float posX1;
+    private float posY1;
+    private float posX2;
+    private float posY2;
+    private float posX;
+    private float posY;
+    private float radius;
     private CollidableType collidableType;
 
     public boolean isCollidable() {
@@ -28,7 +28,7 @@ abstract public class GameObject {
         RADIUS,
         LINE
     }
-    GameObject(boolean collidable, boolean renderable, double posX, double posY, double radius){
+    GameObject(boolean collidable, boolean renderable, float posX, float posY, float radius){
         this.collidable = collidable;
         this.renderable = renderable;
         this.posX = posX;
@@ -36,7 +36,7 @@ abstract public class GameObject {
         this.radius = radius;
         this.collidableType = CollidableType.RADIUS;
     }
-    GameObject(boolean collidable, boolean renderable, double posX1, double posY1, double posX2, double posY2){
+    GameObject(boolean collidable, boolean renderable, float posX1, float posY1, float posX2, float posY2){
         this.collidable = collidable;
         this.renderable = renderable;
         this.posX1 = posX1;
@@ -46,25 +46,25 @@ abstract public class GameObject {
         this.collidableType = CollidableType.LINE;
     }
 
-    public double getPosX1() {
+    public float getPosX1() {
         return posX1;
     }
-    public double getPosY1() {
+    public float getPosY1() {
         return posY1;
     }
-    public double getPosX2() {
+    public float getPosX2() {
         return posX2;
     }
-    public double getPosY2() {
+    public float getPosY2() {
         return posY2;
     }
-    public double getPosX() {
+    public float getPosX() {
         return posX;
     }
-    public double getPosY() {
+    public float getPosY() {
         return posY;
     }
-    public double getRadius() {
+    public float getRadius() {
         return radius;
     }
 }
