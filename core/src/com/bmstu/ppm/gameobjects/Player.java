@@ -7,10 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.bmstu.ppm.SuperDuperMath;
 
 import java.sql.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -235,6 +232,7 @@ public class Player {
     public void weaponShoot(){
         Weapon gun = weapons.get(currentWeapon);
         if (currentWeapon == WEAPONS.SHOTGUN && !isShooting && gun.getMagBullets() > 0){
+            rotate += (new Random().nextInt(10 + 10) - 10)*Math.PI/180;
             isShooting = true;
             gun.getShootSound().play();
             gun.setMagBullets(0);
@@ -244,6 +242,7 @@ public class Player {
             }
         }
         else if (!isReloading && !isShooting && gun.getMagBullets() > 0){
+            rotate += (new Random().nextInt(5 + 5) - 5)*Math.PI/180;
             gun.setMagBullets(gun.getMagBullets()-1);
             isShooting = true;
             gun.getShootSound().play();
