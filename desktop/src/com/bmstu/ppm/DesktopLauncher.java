@@ -11,6 +11,8 @@ public class DesktopLauncher {
 		//config.setForegroundFPS(120);
 		config.setWindowedMode(1,1);
 		//config.useVsync(true);
+		int samples = 4; // качество сглаживания MSAA
+		config.setBackBufferConfig(8, 8, 8, 8, 16, 0, samples);
 		config.setTitle("Pew-Pew-Meow");
 		config.setResizable(false);
 		new Lwjgl3Application(new PPMGame(), config);

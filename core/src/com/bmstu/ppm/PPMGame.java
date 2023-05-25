@@ -6,12 +6,17 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.bmstu.ppm.gameobjects.PICKUPS;
+import com.bmstu.ppm.gameobjects.Pickup;
 import com.bmstu.ppm.levels.Level;
 import com.bmstu.ppm.menu.LoadLevelScreen;
 import com.bmstu.ppm.menu.MainMenuScreen;
 import com.bmstu.ppm.menu.SettingsScreen;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 
 public class PPMGame extends Game {
@@ -45,7 +50,7 @@ public class PPMGame extends Game {
 
 
 		music = Gdx.audio.newMusic(Gdx.files.internal("music/OveMelaa-ThemeCrystalized.mp3"));
-		music.setVolume((float) settings.volume / 100);
+		music.setVolume((float) settings.musicVolume / 100);
 		music.setLooping(true);
 		music.play();
 		
@@ -71,17 +76,24 @@ public class PPMGame extends Game {
 						{2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2},
 						{2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2},
 						{2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2},
-						{2,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2},
+						{2,0,0,0,0,4,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2},
 						{2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2},
-						{2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2},
-						{2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2},
-						{2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2},
-						{2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2},
-						{2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2},
+						{2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,2,2,2,0,0,2,2},
+						{2,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,2},
+						{2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,2,0,0,0,2,0,0,0,2},
+						{2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,2,0,0,0,2,0,2},
+						{2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,2},
 						{2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2},
 				},
 				new Texture(Gdx.files.internal("Textures/Clouds/Clouds 7/1.png")),
-				new Texture(Gdx.files.internal("Textures/Clouds/Clouds 7/1.png"))
+				new Texture(Gdx.files.internal("Textures/256x256/256_Checkered 01.png")),
+				new ArrayList<>(Arrays.asList(
+						new Pickup("Textures/FPGuns/RifleIcon.png", PICKUPS.RIFLE, 1, .2f, 600f, 600f),
+						new Pickup("Textures/FPGuns/ammo-rifle 32px.png", PICKUPS.AMMO_RIFLE, 100, .3f, 600f, 700f),
+						new Pickup("Textures/FPGuns/ShotgunIcon.png", PICKUPS.SHOTGUN, 1, .2f, 800f, 600f),
+						new Pickup("Textures/FPGuns/ammo-shotgun 32px.png", PICKUPS.AMMO_SHOTGUN, 100, .3f, 800f, 700f),
+						new Pickup("Textures/FPGuns/ammo-pistol 32px.png", PICKUPS.AMMO_GMEOWK18, 100, .3f, 900f, 1500f)
+				))
 		));
 		screens.put(STAGE.LEVEL1, new MainMenuScreen(this));
 		screens.put(STAGE.LEVEL2, new MainMenuScreen(this));
