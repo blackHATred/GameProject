@@ -241,7 +241,7 @@ public class Level implements Screen {
             reloadTimer = 0;
             batch.draw(
                     player.getCurrentWeaponFrame(),
-                    (Gdx.graphics.getWidth() - Gdx.graphics.getHeight()*player.getCurrentGun().getScale()) / 2f - player.getCurrentGun().getPixelScreenOffsetX(),
+                    (Gdx.graphics.getWidth() - Gdx.graphics.getHeight()*player.getCurrentGun().getScale()) / 2f - player.getCurrentGun().getPixelScreenOffsetX() - 10f*(float)Math.sin(Math.PI* shakeCoefficient /2*System.currentTimeMillis()/1000d),
                     renderLevel-Gdx.graphics.getHeight()/2f - player.getCurrentGun().getPixelScreenOffsetY(),
                     Gdx.graphics.getHeight()*player.getCurrentGun().getScale(),
                     Gdx.graphics.getHeight()*player.getCurrentGun().getScale() * player.getCurrentWeaponFrame().getRegionHeight() /player.getCurrentWeaponFrame().getRegionWidth()
@@ -251,7 +251,7 @@ public class Level implements Screen {
         batch.setColor(0f, 1f, 0f, 0.7f);
         if (player.getCrosshair() != null)
             batch.draw(player.getCrosshair(),
-                    (Gdx.graphics.getWidth() - Gdx.graphics.getHeight()*.05f) / 2f,
+                    (Gdx.graphics.getWidth() - Gdx.graphics.getHeight()*.05f) / 2f - 10f*(float)Math.sin(Math.PI* shakeCoefficient /2*System.currentTimeMillis()/1000d),
                     (Gdx.graphics.getHeight() - Gdx.graphics.getHeight()*.05f) / 2f,
                     Gdx.graphics.getHeight()*.05f, Gdx.graphics.getHeight()*.05f);
         // интерфейс
@@ -294,8 +294,11 @@ public class Level implements Screen {
     @Override
     public void resize(int width, int height) {
         System.out.println("resize");
-        stage.getViewport().update(width, height, true);
-
+        stage.getViewport().setScreenSize(width, height);
+        /*stage.getViewport().update(
+                Integer.parseInt(game.settings.resolution.split("x")[0]),
+                Integer.parseInt(game.settings.resolution.split("x")[1]),
+                true);*/
     }
 
     @Override

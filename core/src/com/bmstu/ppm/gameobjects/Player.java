@@ -80,8 +80,8 @@ public class Player {
     public Player(float posX, float posY){
         this.posX = posX;
         this.posY = posY;
-        //defaultCrosshair = new Texture(Gdx.files.internal("Textures/Crosshairs/512/11.png"));
-        defaultCrosshair = null;
+        defaultCrosshair = new Texture(Gdx.files.internal("Textures/Crosshairs/512/11.png"));
+        //defaultCrosshair = null;
         cancelCrosshair = new Texture(Gdx.files.internal("Textures/Crosshairs/512/63.png"));
         currentCrosshair = defaultCrosshair;
         currentWeapon = WEAPONS.GMEOWK18;
